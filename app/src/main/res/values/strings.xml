@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Test App - Credit Card</string>
+    <string name="button_continue">Continue</string>
+    <string name="credit_card_hint">Credit Card Number</string>
+    <string name="credit_card_error">Please, add a valid credit card number.</string>
+    <string name="expiry_date_hint">Expiry Date (MM/YY)</string>
+    <string name="expiry_date_error">Please, add a valid expire date.</string>
+    <string name="cvv_hint">Security Number</string>
+    <string name="cvv_error">Please, add a valid Security Number.</string>
+    <string name="no_reason_cvv_option_no_cvv_on_card">No CVV on card</string>
+    <string name="no_reason_cvv_option_no_card_present">No card present</string>
+    <string name="no_reason_cvv_option_unable_read">Unable to read</string>
+    <string name="no_reason_cvv_label">An option must be selected when the Security Code is not informed:</string>
+    <string name="select_moto_type">MOTO Type</string>
+    <string name="select_moto_type_option_single">Single</string>
+    <string name="select_moto_type_option_recurring">Recurring</string>
+    <string name="moto_type_label">Please, select a MOTO type</string>
+    <string name="store_card_label">Card stored on file?</string>
+    <string name="card_stored_option_yes">Yes</string>
+    <string name="card_stored_option_no">No</string>
+    <string name="amount_value">Amount: $%s</string>
+    <string name="information_received">Information Received!</string>
+</resources>
