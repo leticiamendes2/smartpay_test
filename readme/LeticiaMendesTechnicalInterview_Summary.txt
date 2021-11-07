@@ -1,0 +1,91 @@
+Scope:
+
+- 1 UI with 7 input text fields and 1 button.
+- When the app opens, this screen will be shown, and the user will be able to select any field to start typing.
+- The button will be disabled by default and it only becomes enable when all the fields are correctly validated.
+	- The mandatory fields have to be filled with valid information.
+	- The validation will happen when the user removes the focus from the view.
+- Once the user clicks on the "Continue" button, a toaster will display the message "Information Received".
+
+
+Questions I would ask in a real refinement session:
+
+- What are the entry points to this feature?
+- Where is the amout information coming from?
+	From the screeshots it doesn't seem like it's an user input.
+	For this exercise, I'll assume this value is coming from somewhere and is presented on the screen formatted as x,xxx.xx
+- Which currencies are we supporting?
+- Which kind of storage is required for the amount field?
+- Which roles are allowed/not allowed to use this feature?
+- How do we manage roles?
+- Where does the back button would take the user to? Does it the depend on the use case?
+- Where does the X button would take the user to? Does it the depend on the use case?
+- Where does the continue button would take the user to? Does it the depend on the use case?
+- Which client-side validations should we perform for each field?
+	For this test I'm using this class to perform basic Credit Card validations: https://github.com/checkout/checkoutkit-android/blob/master/checkoutkit/src/main/java/com/checkout/CardValidator.java
+- Is there any restriction on Credit Card types accepted?
+- What are the formatting rules for each field?
+- Which characters are allowed/nor allowed in each field?
+- Should we permit not-allowed characters to be pasted/typed and display an error or just don't allow them? (Please, pick the later)
+- Which security concerns do we have around this data and how are they typically addressed?
+- Could we have a list of invalid entries to use to test the validation logic?
+- Should we perform validations while the user is typing or when they leave the text field?
+	My recommendation for this question depends on the scenario:
+		For example, let's think on a 'search field', where a search API is called for every character the user types, it is a bit of an overkill, and it consumes a lot of resources for not much UX gain.
+		Now, on a field where the user has to type many different numbers and it's not a natural input, like the credit card number, I'd recommend to validate it as they type, because it will save them a lot of time to figure what is wrong after they finished typing the whole number. The sooner we can let them know that they made a mistake, the easier it will be for them to fix it and proceed with the flow. And the text validation consumes a lot resources than search API calls with heavy screen re-drawing to refresh the results.
+- Suggestion: What if we determine the Credit Card flag and display it on the screen as another visual feedback to the user?
+
+
+Acceptance Tests
+
+01) Verify that the field 'PAN' is visible, and editable on the screen.
+02) Verify that the field 'CVV' is visible, and editable on the screen.
+03) Verify that the field 'Expiry' is visible, and editable on the screen.
+04) Verify that the field 'MOTO Type' is visible, and editable on the screen.
+05) Verify that the field 'MOTO Type' sub option 'Single' is visible, and selectable on the screen.
+06) Verify that the field 'MOTO Type' sub option 'Recurring' is selectable on the screen.
+07) Verify that when the field 'Recurring' is selected, the field 'Card Stored on file?' is visible, and selectable on the screen.
+08) Verify that when the field 'Single' is selected, the field 'Card Stored on file?' is gone on the screen.
+09) Verify that the field 'Amount' is visible on the screen.
+10) Verify that when the field 'CVV' is empty, one of the 'No CVV Reason' must be selected.
+11) Verify that when the field 'CVV' is filled, the 'No CVV Reason' option is unselected, and disabled.
+12) Verify that the Continue button is disabled when the 'PAN' value is empty or invalid.
+13) Verify that the Continue button is disabled when the 'CVV' value is invalid.
+14) Verify that the Continue button is disabled when the 'CVV' value is empty and no 'No CVV Reason' was selected.
+15) Verify that the Continue button is disabled when the 'Expiry' value empty or invalid.
+16) Verify that the Continue button is disabled when no 'MOTO Type' was selected.
+17) Verify that the Continue button is disabled when the 'MOTO Type' sub option 'Recurring' is selected and no 'Card Stored on file?' was selected.
+18) Verify that the Continue button is disabled when the 'Amount' value is empty or invalid.
+19) 'PAN' Validation Rules: '5456 7890 1234 5670' is valid
+20) 'PAN' Validation Rules: '4284 5588 7784 3546' is valid
+21) 'PAN' Validation Rules: '0000 5588 7784 3546' is invalid
+22) 'PAN' Validation Rules: '4284 0000 7784 3546' is invalid
+23) 'PAN' Validation Rules: '4284 5588 0000 3546' is invalid
+24) 'PAN' Validation Rules: '4284 5588 7784 0000' is invalid
+25) 'PAN' Validation Rules: does not accept more than 19 digits
+26) 'PAN' Validation Rules: does not accept anything else than numbers and space
+27) 'CVV' Validation Rules: '123' is valid
+28) 'CVV' Validation Rules: '714' is valid
+29) 'CVV' Validation Rules: '000' is invalid
+30) 'CVV' Validation Rules: does not accept more than 3 digits
+31) 'CVV' Validation Rules: does not accept anything else than numbers
+32) 'Expiry' Validation Rules: date in MM/YY format
+33) Verify that the button 'Continue' is visible on the screen.
+34) Verify that the button 'Continue' is disabled when the screen loads on the screen.
+35) Verify that the button 'Continue' is enabled only when all the fields on the screen are valid.
+
+Please, have a look at the folder "tests_results" and run the tests found in the androidTest/AddCreditCardTest and test/AddCreditCardUnitTest.
+Not all the tests above were implemented, some are not passing, and I commented them out, and some did help me finding bugs; I added few comments around them.
+
+
+Things I would improve with more time:
+
+1) Implement proper Dependency Injection to enable more tests.
+2) Implement event listener for pasting text.
+3) Beautify the UI.
+4) Add formatting rules for when the user is editting and when the user leaves the field.
+5) Use a custom date picker to enable only future dates for month and year.
+6) Alternative scenario: fill up CVV then change Credit Card number: add extra validation/special handling?
+7) Handling data for configuration change, if applied.
+8) Increase coverage, fix the broken ones and oraganize both unit tests and UI tests.
+9) Storage of the information

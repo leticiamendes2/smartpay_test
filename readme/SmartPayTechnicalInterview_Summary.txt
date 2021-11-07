@@ -1,0 +1,66 @@
+Task 1: UI - Card Entry Screen
+
+The feature is to add manual PAN entry (MANPAN) to be used for card not present (MOTO) transactions.
+There must be a screen from which merchants can enter the details necessary to submit the details for a credit card supplied via Mail Order or Telephone Order (MOTO). The particulars of the card details required are as follows:
+
+Fields:
+
+1. M - PAN
+This is the main credit card number displayed on the card. It is sensitive data and should be treated securely. Up to 19 digits.
+
+2. O - CVV
+Card Security Code: This is used to verify the card PAN and expiry are currently valid. Up to 4 digits.
+
+3. M - Expiry
+Date after which transactions from this card will be rejected. Four Digits 2 for month and 2 for year.
+
+4. M - MOTO Type
+The type of MOTO can be one of the following: 
+- Single
+- Recurring
+
+5. C - Card Stored on file?
+For recurring payments the merchant needs to indicate whether they have this card already on file or if it is a new card.
+
+6. C - No CVV Reason [ Mandatory if CVV is not present ]
+- No CVV on card
+- No card present
+- Unable to read
+
+7. M - Amount
+Value to be stored as cents.
+
+Glossary:
+
+MOTO (Mail Order Telephone Order) – terminal functionality that allows you to take a payment with details provided over the phone, by mail, or by email. sometimes referred to as MAN PAN
+
+PAN – stands for Primary Account Numbers.
+
+Criteria:
+
+Project Completeness (how much of the original specification was successfully delivered)
+How much?
+
+Development Experience (how easy your solution is to understand, extend, and maintain)
+How easy your solution is to Understand?
+How easy your solution is to Extend?
+How easy your solution is to Maintain?
+
+Software Engineering (what your keys choices/decisions of software design, quality and performance were)
+What your keys choices/decisions of software design?
+What your keys choices/decisions of software quality?
+What your keys choices/decisions of software performance?
+
+Outputs:
+
+Links to your technical solution, so that we can look at your code and its history. 
+GitHub repository: https://github.com/leticiamendes2/smartpay_test.git
+Test reports: tests_results/
+Build reports: ??
+
+The solution should contain at minimum:
+The code for the program (project and Gradle files included)
+The code for unit tests (with instructions on how to run them)
+The code for acceptance tests (with instructions on how to run them)
+
+A quick explanation of things you would still do if you had more time. You are welcome to add comments throughout the code to share your thoughts and deliberations.
